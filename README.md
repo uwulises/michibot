@@ -1,12 +1,12 @@
 # michibot
 
-Michi (cat) intentionally design for work with a Raspberry Pi Pico + micropython. 
+Michi (cat) intentionally designed for work with a Raspberry Pi Pico + micropython. 
 
 ## Ref
-- <https://www.petoi.com/pages/nybble-cutest-bionic-robot-cat>
-- <https://www.thingiverse.com/thing:4015171/files>
+- Robot Cat Nybble <https://www.petoi.com/pages/nybble-cutest-bionic-robot-cat>
+- OpenCat <https://www.thingiverse.com/thing:4015171/files>
 
-Ideas & examples may found here <https://github.com/raspberrypi/pico-examples>
+Ideas & examples may be found here <https://github.com/raspberrypi/pico-examples>
 
 # Materials
 - Raspberry Pi Pico
