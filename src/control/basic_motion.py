@@ -1,8 +1,7 @@
 from servo import Servo
 import utime
-#Definimos los motores y sus posiciones asociadas
-
-
+import math
+# Definimos los motores y sus posiciones asociadas
 
 
 FEMUR_FL = 0
@@ -16,41 +15,50 @@ TIBIA_BR = 7
 NECK_PITCH = 8
 NECK_YAW = 9
 TAIL = 10
-all_body_names= ["FEMUR_FL", "FEMUR_FR", "FEMUR_BL", "FEMUR_BR", "TIBIA_FL", "TIBIA_FR", "TIBIA_BL", "TIBIA_BR", "NECK_PITCH", "NECK_YAW", "TAIL"]
-all_body = [FEMUR_FL, FEMUR_FR, FEMUR_BL, FEMUR_BR, TIBIA_FL, TIBIA_FR, TIBIA_BL, TIBIA_BR, NECK_PITCH, NECK_YAW, TAIL]
+all_body_names = ["FEMUR_FL", "FEMUR_FR", "FEMUR_BL", "FEMUR_BR", "TIBIA_FL",
+                  "TIBIA_FR", "TIBIA_BL", "TIBIA_BR", "NECK_PITCH", "NECK_YAW", "TAIL"]
+all_body = [FEMUR_FL, FEMUR_FR, FEMUR_BL, FEMUR_BR, TIBIA_FL,
+            TIBIA_FR, TIBIA_BL, TIBIA_BR, NECK_PITCH, NECK_YAW, TAIL]
 femurs = [FEMUR_FL, FEMUR_FR, FEMUR_BL, FEMUR_BR]
-tibias= [TIBIA_FL, TIBIA_FR, TIBIA_BL, TIBIA_BR]
-
-
-
+tibias = [TIBIA_FL, TIBIA_FR, TIBIA_BL, TIBIA_BR]
 
 
 def instance_servos(L_servos: list, L_names: list):
     for i in L_servos:
         L_names[i] = Servo(L_servos[i])
-        print(str(L_names[i]))
-
-instance_servos(all_body,all_body_names)
 
 
+instance_servos(all_body, all_body_names)
 
 
-def instance_servos(L_servos: list, L_names: list):
-    for i in L_servos:
-        L_names[i] = Servo(L_servos[i])
-       
-
-instance_servos(all_body,all_body_names)
-
-
-
-while True:
-    #Run every motor
-
+# Todos los motores a 90 deg
+def setup_position():
     for j in range(len(all_body_names)):
-        all_body_names[j].set_angle(180)
-        utime.sleep(0.1)
-        
-    for j in range(len(all_body_names)):
-        all_body_names[j].set_angle(0)
-        utime.sleep(0.1)
+        all_body_names[j].set_angle(90)
+        utime.sleep(0.01)
+
+
+def stand_michi():
+    for j in range(4):
+        all_body_names[j].set_angle(120)
+        utime.sleep(0.01)
+    for j in range(4):
+        all_body_names[j+4].set_angle(60)
+        utime.sleep(0.01)
+
+
+def inverse_kinematics(x, z):
+    a = 47
+    q2 = math.acos((math.pow(x, 2)+math.pow(z, 2))/(2*math.pow(a, 2))-1)
+    if x == 0:
+        q1 = math.pi/2 + q2/2
+    elif x > 0:
+        q1 = math.pi/2-math.atan(x/z)+q2/2  # se invierte el atan
+    else:
+        q1 = math.pi-math.atan(z/x)+q2/2
+
+    q2 = math.degrees(q2)
+    q1 = math.degrees(q1)
+    q1 = round(q1, 0)
+    q2 = round(q2, 0)
+    return q1, q2
