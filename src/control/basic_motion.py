@@ -48,17 +48,18 @@ def stand_michi():
 
 
 def inverse_kinematics(x, z):
-    a = 47
-    q2 = math.acos((math.pow(x, 2)+math.pow(z, 2))/(2*math.pow(a, 2))-1)
+    a = 47 #length of each link 
+    q2 = math.pi - \
+        math.acos(1 - (math.pow(x, 2) + math.pow(z, 2))/(2*math.pow(a, 2)))
     if x == 0:
         q1 = math.pi/2 + q2/2
     elif x > 0:
-        q1 = math.pi/2-math.atan(x/z)+q2/2  # se invierte el atan
+        q1 = math.atan(-z/x) + q2/2
     else:
-        q1 = math.pi-math.atan(x/z)+q2/2
+        q1 = math.pi + q2/2 - math.atan(z/x)
 
     q2 = math.degrees(q2)
     q1 = math.degrees(q1)
-    q1 = round(q1, 0)
-    q2 = round(q2, 0)
+    q1 = round(q1, 1)
+    q2 = round(q2, 1)
     return q1, q2
