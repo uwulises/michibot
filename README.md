@@ -10,10 +10,10 @@ Ideas & examples may be found here <https://github.com/raspberrypi/pico-examples
 
 # Materials
 - Raspberry Pi Pico
-- Servo SG90 (9g ones)
+- Servo MG90
 - Raspberry Pi Zero 2W
 
 
 # Brainstorming/layout/PCBdesign
 
-<img src="michibot_layout.drawio(1).png" width="800">
+<img src="michibot_layout.png" width="800">
