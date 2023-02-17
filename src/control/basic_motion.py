@@ -55,7 +55,7 @@ def inverse_kinematics(x, z):
     elif x > 0:
         q1 = math.pi/2-math.atan(x/z)+q2/2  # se invierte el atan
     else:
-        q1 = math.pi-math.atan(z/x)+q2/2
+        q1 = math.pi-math.atan(x/z)+q2/2
 
     q2 = math.degrees(q2)
     q1 = math.degrees(q1)
